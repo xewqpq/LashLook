@@ -1,0 +1,775 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Искусство прекрасного взгляда — LashLook</title>
+
+  <!-- Цвета: бежевый, коричневый, чёрный -->
+  <style>
+    :root{
+      --bg:#f7efe8;        /* нежный беж */
+      --paper:#fff8f3;
+      --accent:#7b4f33;    /* коричневый */
+      --accent-2:#a67c52;  /* светлее коричневый */
+      --text:#1b1b1b;      /* почти чёрный */
+      --muted:#7a6b63;
+      --glass: rgba(255,255,255,0.6);
+      --radius:16px;
+      --maxw:1100px;
+    }
+
+    /* базовый сброс */
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: "Inter", "Helvetica Neue", Arial, sans-serif;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(166,124,82,0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(123,79,51,0.02) 0%, transparent 50%),
+        linear-gradient(180deg, var(--bg) 0%, #efe7dc 100%);
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.5;
+      position: relative;
+    }
+
+    /* Декоративный фон с узором */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(circle at 25% 25%, rgba(123,79,51,0.02) 2px, transparent 2px),
+        radial-gradient(circle at 75% 75%, rgba(166,124,82,0.02) 2px, transparent 2px);
+      background-size: 60px 60px;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+
+    .container{
+      width:92%;
+      max-width:var(--maxw);
+      margin:0 auto;
+    }
+
+    /* HEADER */
+    header.site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter: blur(12px);
+      background: linear-gradient(180deg, rgba(255,255,255,0.8), rgba(255,255,255,0.5));
+      border-bottom:1px solid rgba(123,79,51,0.08);
+      transition: all 0.3s ease;
+    }
+    .site-header.scrolled {
+      backdrop-filter: blur(16px);
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 4px 20px rgba(123,79,51,0.08);
+    }
+    .site-header .container{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:14px 0;
+    }
+
+    .brand{
+      display:flex;
+      gap:12px;
+      align-items:center;
+    }
+    .logo {
+      width:56px;
+      height:56px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: #fff;
+      font-weight:700;
+      font-size:18px;
+      box-shadow: 0 8px 24px rgba(123,79,51,0.2);
+      transform:translateZ(0);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .logo::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    .logo:hover::after {
+      left: 100%;
+    }
+    .brand h1{
+      margin:0;
+      font-size:18px;
+      letter-spacing:0.2px;
+    }
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+
+    nav.topnav{display:flex; gap:20px; align-items:center}
+    .btn {
+      display:inline-block;
+      padding:12px 20px;
+      border-radius:12px;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#fff;
+      font-weight:600;
+      box-shadow:0 8px 20px rgba(123,79,51,0.15);
+      transition:transform .3s ease, box-shadow .3s ease, background .3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.5s ease;
+    }
+    .btn:hover::before {
+      left: 100%;
+    }
+    .btn:hover{transform:translateY(-3px); box-shadow:0 14px 28px rgba(123,79,51,0.25)}
+
+    /* HERO */
+    .hero{
+      margin-top:28px;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:32px;
+      align-items:start;
+    }
+    .card {
+      background:linear-gradient(135deg, var(--paper), rgba(255,248,240,0.95));
+      border-radius:var(--radius);
+      padding:32px;
+      box-shadow: 0 12px 40px rgba(45,33,28,0.08);
+      overflow:hidden;
+      position: relative;
+      border: 1px solid rgba(255,255,255,0.5);
+      backdrop-filter: blur(10px);
+      min-height: 400px;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-2), transparent);
+    }
+
+    .hero h2{
+      margin:0 0 12px;
+      font-size:32px;
+      color:var(--text);
+      letter-spacing:0.2px;
+      line-height:1.1;
+      background: linear-gradient(135deg, var(--text), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p.lead{
+      margin:0 0 24px;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.6;
+    }
+
+    .highlight{
+      display:inline-block;
+      background:linear-gradient(90deg, rgba(166,124,82,0.12), rgba(123,79,51,0.08));
+      padding:8px 14px;
+      border-radius:999px;
+      color:var(--accent);
+      font-weight:600;
+      font-size:14px;
+      border: 1px solid rgba(123,79,51,0.1);
+    }
+
+    /* main content */
+    main {margin:40px 0; display:grid; gap:28px}
+    section.services{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:20px;
+    }
+    .service{
+      background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(250,244,240,0.9));
+      padding:24px;
+      border-radius:14px;
+      border:1px solid rgba(123,79,51,0.08);
+      transition:transform .45s ease, box-shadow .45s ease, background .45s ease;
+      position:relative;
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+    }
+    .service::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg, var(--accent), var(--accent-2));
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+    .service:hover::before {
+      transform: scaleY(1);
+    }
+    .service:hover{
+      transform:translateY(-8px) scale(1.02);
+      box-shadow:0 24px 48px rgba(60,40,30,0.12);
+      background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(250,244,240,0.95));
+    }
+    .service h3{margin:0 0 12px; color:var(--accent); font-size:18px}
+    .service p{margin:0;color:var(--muted); font-size:14px; line-height:1.5}
+
+    /* about and CTA */
+    .about{
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:24px;
+      align-items:start;
+    }
+    .about .text p{color:var(--muted); line-height:1.6}
+    .cta-card{
+      padding:28px;
+      border-radius:16px;
+      background:linear-gradient(135deg, rgba(123,79,51,0.08), rgba(166,124,82,0.06));
+      text-align:center;
+      display:flex;
+      flex-direction:column;
+      gap:16px;
+      justify-content:center;
+      min-height:240px;
+      border: 1px solid rgba(123,79,51,0.1);
+      backdrop-filter: blur(10px);
+    }
+    .cta-card .big{font-weight:700; font-size:22px; color:var(--accent); line-height:1.3}
+    .cta-card .small{color:var(--muted); font-size:15px; line-height:1.4}
+
+    /* footer */
+    footer{
+      margin:40px 0 80px;
+      padding:32px 0;
+      color:var(--muted);
+      border-top:1px solid rgba(123,79,51,0.08);
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(250,244,240,0.4));
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+    .socials{display:flex; gap:12px; align-items:center}
+
+    /* small screens */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .about{grid-template-columns:1fr}
+      .card {min-height: auto;}
+    }
+
+    /* ANIMATIONS: simple reveal on scroll */
+    .reveal{opacity:0; transform:translateY(24px) scale(.995); transition:all .75s cubic-bezier(.2,.9,.2,1)}
+    .reveal.in-view{opacity:1; transform:none}
+
+    /* little decorative eyebrow shape */
+    .eyebrow{
+      width:88px;
+      height:8px;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      margin-bottom:12px;
+      box-shadow:0 6px 16px rgba(123,79,51,0.15);
+      position: relative;
+    }
+    .eyebrow::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      border-radius: inherit;
+    }
+
+    /* button variants */
+    .ghost{
+      background:transparent;
+      color:var(--accent);
+      padding:10px 16px;
+      border-radius:10px;
+      border:1px solid rgba(123,79,51,0.15);
+      transition:all .3s ease;
+      font-weight:500;
+    }
+    .ghost:hover{transform:translateY(-3px); box-shadow:0 12px 28px rgba(123,79,51,0.1); background: rgba(123,79,51,0.05)}
+
+    /* subtle floating animation for hero image */
+    .float {
+      animation: floaty 8s ease-in-out infinite;
+    }
+    @keyframes floaty{
+      0%{transform:translateY(0) rotate(0deg)}
+      50%{transform:translateY(-12px) rotate(0.5deg)}
+      100%{transform:translateY(0) rotate(0deg)}
+    }
+
+    /* small utilities */
+    .small{font-size:14px;color:var(--muted)}
+    .muted{color:var(--muted)}
+    .pill{display:inline-block;padding:8px 14px;border-radius:999px;background:rgba(123,79,51,0.08); color:var(--accent); font-weight:600; font-size:14px; border: 1px solid rgba(123,79,51,0.1)}
+    .grid-2{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+
+    /* focus-visible for accessibility */
+    a:focus, button:focus {outline:3px solid rgba(166,124,82,0.2); outline-offset:3px}
+
+    /* Декоративные элементы */
+    .decoration {
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+    }
+    .decoration-1 {
+      width: 200px;
+      height: 200px;
+      background: radial-gradient(circle, rgba(166,124,82,0.05) 0%, transparent 70%);
+      top: 10%;
+      right: 5%;
+    }
+    .decoration-2 {
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle, rgba(123,79,51,0.03) 0%, transparent 70%);
+      bottom: 20%;
+      left: 5%;
+    }
+
+    /* Стили для преимуществ */
+    .benefits-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(250,244,240,0.8));
+      border-radius: 12px;
+      border: 1px solid rgba(123,79,51,0.06);
+      transition: all 0.3s ease;
+    }
+    .benefit-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(60,40,30,0.08);
+      background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(250,244,240,0.9));
+    }
+    .benefit-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .benefit-content {
+      flex: 1;
+    }
+    .benefit-content h4 {
+      margin: 0 0 8px 0;
+      color: var(--accent);
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .benefit-content p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Стили для отзывов */
+    .testimonials {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .testimonial {
+      padding: 20px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.8), rgba(250,244,240,0.9));
+      border-radius: 12px;
+      border: 1px solid rgba(123,79,51,0.06);
+      position: relative;
+    }
+    .testimonial::before {
+      content: '"';
+      position: absolute;
+      top: 12px;
+      left: 16px;
+      font-size: 48px;
+      color: rgba(123,79,51,0.1);
+      font-family: serif;
+      line-height: 1;
+    }
+    .testimonial-text {
+      margin: 0 0 12px 0;
+      color: var(--text);
+      font-style: italic;
+      line-height: 1.5;
+      position: relative;
+      z-index: 1;
+      padding-left: 20px;
+    }
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .author-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .author-info {
+      display: flex;
+      flex-direction: column;
+    }
+    .author-name {
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 14px;
+    }
+    .author-service {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* Стили для футера */
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-telegram {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex: 1;
+    }
+    .telegram-link {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white !important;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-weight: 600;
+      box-shadow: 0 8px 20px rgba(123,79,51,0.15);
+      transition: all 0.3s ease;
+      text-decoration: none !important;
+    }
+    .telegram-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(123,79,51,0.25);
+      text-decoration: none !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Декоративные элементы фона -->
+  <div class="decoration decoration-1"></div>
+  <div class="decoration decoration-2"></div>
+
+  <header class="site-header" role="banner">
+    <div class="container">
+      <div class="brand" aria-hidden="false">
+        <div class="logo" aria-hidden="true">LL</div>
+        <div>
+          <h1>Искусство прекрасного взгляда</h1>
+          <p>Салон ресниц LashLook</p>
+        </div>
+      </div>
+
+      <nav class="topnav" role="navigation" aria-label="Главное меню">
+        <a class="ghost" href="#services">Услуги</a>
+        <a class="btn" href="#contact">Записаться</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" role="main">
+
+    <!-- HERO -->
+    <section class="hero">
+      <article class="card reveal" aria-labelledby="hero-title">
+        <div class="eyebrow" aria-hidden="true"></div>
+        <h2 id="hero-title">Ваш взгляд — это ваша <span style="background: linear-gradient(135deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">суперсила</span>.</h2>
+        <p class="lead">Он может сказать больше тысячи слов, очаровать, вдохновить и покорить. Мы в салоне <strong>LashLook</strong> знаем это как никто другой. Наша миссия — помочь вам раскрыть всю мощь и красоту вашего взгляда.</p>
+
+        <div class="grid-2" style="margin-top:24px;">
+          <div>
+            <h3 class="small muted">Почему выбирают нас</h3>
+            <ul style="margin:8px 0 0 20px; color:var(--muted); line-height:1.6">
+              <li>Материалы премиум-класса</li>
+              <li>Опытные мастера</li>
+              <li>Комфорт и индивидуальный подход</li>
+            </ul>
+          </div>
+          <div style="display:flex; align-items:center; gap:8px; justify-content:flex-end">
+            <a class="btn" href="#contact">Записаться онлайн</a>
+          </div>
+        </div>
+      </article>
+
+      <aside class="card float reveal" aria-labelledby="advantages-title">
+        <h3 id="advantages-title" style="margin-top:0">Наши преимущества</h3>
+        <p class="small muted" style="margin-top:0">То, что отличает нас от других</p>
+        
+        <div class="benefits-grid">
+          <div class="benefit-item">
+            <div class="benefit-icon">✓</div>
+            <div class="benefit-content">
+              <h4>Гипоаллергенные материалы</h4>
+              <p>Используем только сертифицированные материалы, безопасные для чувствительных глаз и кожи</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">⏱</div>
+            <div class="benefit-content">
+              <h4>Экономия времени</h4>
+              <p>Просыпайтесь с идеальным макияжем глаз каждый день без необходимости нанесения туши</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">👁</div>
+            <div class="benefit-content">
+              <h4>Естественный вид</h4>
+              <p>Ресницы выглядят максимально натурально, подчеркивая вашу природную красоту и индивидуальность</p>
+            </div>
+          </div>
+          <div class="benefit-item">
+            <div class="benefit-icon">💎</div>
+            <div class="benefit-content">
+              <h4>Долговечность</h4>
+              <p>Стойкий результат от 3 до 6 недель в зависимости от типа наращивания и ухода</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="card reveal" aria-labelledby="services-title">
+      <h2 id="services-title">Мы предлагаем полный спектр услуг</h2>
+      <p class="small muted">Каждая деталь доведена до совершенства</p>
+
+      <div class="services" style="margin-top:20px">
+        <article class="service" aria-labelledby="s1">
+          <h3 id="s1">Классическое наращивание</h3>
+          <p>Для тех, кто ценит естественную элегантность и хочет добавить взгляду выразительности.</p>
+        </article>
+
+        <article class="service" aria-labelledby="s2">
+          <h3 id="s2">Объёмное наращивание</h3>
+          <p>2D, 3D и Mega-Volume — эффект роскошных, пушистых ресниц без туши.</p>
+        </article>
+
+        <article class="service" aria-labelledby="s3">
+          <h3 id="s3">Ламинирование ресниц</h3>
+          <p>Идеальное решение для прямых ресниц: идеальный изгиб, насыщенный цвет и густота на 6–8 недель.</p>
+        </article>
+
+        <article class="service" aria-labelledby="s4">
+          <h3 id="s4">Ботокс ресниц</h3>
+          <p>Глубокая реанимация и питание для натуральных ресниц — здоровый вид и блеск.</p>
+        </article>
+
+        <article class="service" aria-labelledby="s5">
+          <h3 id="s5">Коррекция</h3>
+          <p>Поддерживаем безупречный вид ресниц как можно дольше — полировка и коррекция от мастера.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="testimonials" class="card reveal" aria-labelledby="testimonials-title">
+      <h2 id="testimonials-title">Отзывы наших клиентов</h2>
+      <p class="small muted">Что говорят те, кто уже доверил нам свой взгляд</p>
+
+      <div class="testimonials">
+        <article class="testimonial">
+          <p class="testimonial-text">Впервые сделала объемное наращивание и влюбилась в свой взгляд! Мастер Елизавета — настоящий профессионал, все объяснила, подобрала идеальный вариант. Ресницы выглядят очень естественно, но в то же время выразительно.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">ЕК</div>
+            <div class="author-info">
+              <div class="author-name">Екатерина, 28 лет</div>
+              <div class="author-service">Объемное наращивание 3D</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial">
+          <p class="testimonial-text">Делаю ламинирование уже в третий раз. Эффект просто волшебный — свои ресницы, но в 10 раз лучше! Держится больше 2 месяцев, уход минимальный. Очень рекомендую тем, кто хочет подчеркнуть натуральную красоту.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">МС</div>
+            <div class="author-info">
+              <div class="author-name">Марина, 32 года</div>
+              <div class="author-service">Ламинирование ресниц</div>
+            </div>
+          </div>
+        </article>
+
+        <article class="testimonial">
+          <p class="testimonial-text">Пришла на коррекцию после неудачного опыта в другом салоне. Мастер Елизавета не просто исправила ситуацию, а создала именно тот образ, о котором я мечтала! Теперь только к вам, спасибо за профессионализм и внимание к деталям.</p>
+          <div class="testimonial-author">
+            <div class="author-avatar">АП</div>
+            <div class="author-info">
+              <div class="author-name">Анна, 25 лет</div>
+              <div class="author-service">Коррекция + классическое наращивание</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT + CTA -->
+    <section class="about reveal" aria-labelledby="about-title">
+      <div class="text card">
+        <h2 id="about-title">Почему выбирают именно нас?</h2>
+        <p>Мы работаем только с гипоаллергенными материалами от проверенных мировых брендов, чтобы гарантировать безопасность, комфорт и безупречный результат.</p>
+        <p>Наши лашмейкеры — настоящие художники, которые прошли строгий отбор и регулярно повышают квалификацию. Перед процедурой мы обязательно проводим консультацию, чтобы понять ваши пожелания и создать образ вашей мечты.</p>
+        <p class="muted">Во время процедуры вы можете расслабиться и даже вздремнуть под приятную музыку — ваш комфорт в приоритете.</p>
+
+        <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap">
+          <a class="btn" href="#contact">Записаться онлайн</a>
+          <a class="ghost" href="#testimonials">Читать отзывы</a>
+        </div>
+      </div>
+
+      <aside class="cta-card" role="complementary" aria-labelledby="cta-title">
+        <div>
+          <div class="big" id="cta-title">Подарите своему взгляду новое звучание</div>
+          <div class="small">Вы этого достойны — записывайтесь прямо сейчас</div>
+        </div>
+        <div style="margin-top:16px">
+          <a class="btn" href="#contact">Записаться</a>
+        </div>
+      </aside>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="card reveal" aria-labelledby="contact-title">
+      <h2 id="contact-title">Контакты и запись</h2>
+      <p class="small muted">Заполните форму — мы свяжемся для подтверждения</p>
+
+      <form style="margin-top:16px; display:grid; gap:12px;" onsubmit="event.preventDefault(); thankYou();">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px">
+          <input required aria-label="Ваше имя" placeholder="Имя" style="padding:14px;border-radius:12px;border:1px solid rgba(123,79,51,0.1); background: rgba(255,255,255,0.8); transition: all 0.3s ease;" onfocus="this.style.borderColor='var(--accent)'; this.style.boxShadow='0 0 0 3px rgba(123,79,51,0.1)'" onblur="this.style.borderColor='rgba(123,79,51,0.1)'; this.style.boxShadow='none'">
+          <input required aria-label="Телефон или e-mail" placeholder="Телефон или e-mail" style="padding:14px;border-radius:12px;border:1px solid rgba(123,79,51,0.1); background: rgba(255,255,255,0.8); transition: all 0.3s ease;" onfocus="this.style.borderColor='var(--accent)'; this.style.boxShadow='0 0 0 3px rgba(123,79,51,0.1)'" onblur="this.style.borderColor='rgba(123,79,51,0.1)'; this.style.boxShadow='none'">
+        </div>
+        <textarea aria-label="Комментарий" placeholder="Ваши пожелания (напр., предпочитаемые изгиб/объём)" rows="4" style="padding:14px;border-radius:12px;border:1px solid rgba(123,79,51,0.1); background: rgba(255,255,255,0.8); transition: all 0.3s ease;" onfocus="this.style.borderColor='var(--accent)'; this.style.boxShadow='0 0 0 3px rgba(123,79,51,0.1)'" onblur="this.style.borderColor='rgba(123,79,51,0.1)'; this.style.boxShadow='none'"></textarea>
+        <div style="display:flex; gap:12px; align-items:center; flex-wrap: wrap">
+          <button class="btn" type="submit">Отправить</button>
+        </div>
+      </form>
+    </section>
+
+  </main>
+
+  <footer role="contentinfo" class="container">
+    <div class="footer-content">
+      <div>
+        <strong>LashLook</strong> • Салон ресниц — Искусство прекрасного взгляда
+        <div class="small muted" style="margin-top:8px">Материалы премиум-класса • Опытные мастера • Индивидуальный подход</div>
+      </div>
+
+      <div class="footer-telegram">
+        <a class="telegram-link" href="https://t.me/vetalips" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+          Telegram
+        </a>
+      </div>
+    </div>
+
+    <div style="margin-top:20px; font-size:14px; color:var(--muted); text-align: center">© <span id="year"></span> LashLook — Все права защищены</div>
+  </footer>
+
+  <script>
+    // Set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple reveal-on-scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('in-view');
+        }
+      });
+    }, {threshold: 0.12});
+    reveals.forEach(r=>observer.observe(r));
+
+    // Form fake submit
+    function thankYou(){
+      const btn = document.querySelector('#contact .btn');
+      btn.textContent = 'Отправлено!';
+      btn.disabled = true;
+      setTimeout(()=>{
+        btn.textContent = 'Отправить';
+        btn.disabled = false;
+      }, 2500);
+      alert('Спасибо! Мы получили вашу заявку и свяжемся с вами в ближайшее время.');
+    }
+
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+      const header = document.querySelector('.site-header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
+</body>
+</html>
